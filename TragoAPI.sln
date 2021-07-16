@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31512.422
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TragoAPI", "TragoAPI.csproj", "{1220440C-4359-482C-9592-1AA7F31FFF15}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1220440C-4359-482C-9592-1AA7F31FFF15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1220440C-4359-482C-9592-1AA7F31FFF15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1220440C-4359-482C-9592-1AA7F31FFF15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1220440C-4359-482C-9592-1AA7F31FFF15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CF907B05-7996-469A-BBE6-92AE31F43AE7}
+	EndGlobalSection
+EndGlobal
