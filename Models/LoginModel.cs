@@ -15,5 +15,6 @@ namespace TragoAPI.Models
     {
         public bool valid { get; set; }
         public string token { get; set; }
+        public string username { get; set; }       
     }
 }

@@ -11,6 +11,7 @@ namespace TragoAPI
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
+        public static int UserID;
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();

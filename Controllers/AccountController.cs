@@ -24,11 +24,14 @@ namespace TragoAPI.Controllers
             {
                 conn.Open();
                 MySqlDataReader rdr = cmd.ExecuteReader();
-                if(rdr.HasRows)
+                rdr.Read();
+
+                if (rdr.HasRows)
                 {
-                    rdr.Read();
+                    loginResponeModel.username = rdr["Name"].ToString();
                     loginResponeModel.valid = true;
                     loginResponeModel.token=TokenGenerator.GenerateToken(rdr["Name"].ToString());
+                    WebApiApplication.UserID=int.Parse(rdr["User_ID"].ToString());
 
                 }
                 else
@@ -65,6 +68,7 @@ namespace TragoAPI.Controllers
             string query="Select * from users where email='"+model.Email+"';";
             MySqlConnection conn = new MySqlConnection(constr);
             MySqlCommand cmd = conn.CreateCommand();
+            //string code = Base64Encode(model.Password);
             cmd.CommandText = "Select * from users where email='" + model.Email + "';";
             try { 
             conn.Open();
