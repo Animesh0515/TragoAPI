@@ -14,22 +14,22 @@ namespace TragoAPI.Controllers
 
         [AuthenticationFilter]
         [Route("api/Flight/getFlightDetails")]
-        [HttpGet]
-        public List<FlightModel> getFlightDetails()
+        [HttpPost]
+        public List<FlightModel> getFlightDetails([FromBody]SearchFlightModel flt)
         {
             List<FlightModel> lst= new List<FlightModel>();
             
             MySqlConnection conn = new MySqlConnection(constr);
             MySqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = "SELECT f.flight_id, f.airlinename, f.airlinecode, f.airlineimagepath, fd.destinationfrom, fd.destinationto, fd.departuretime, fd.arrivaltime, fd.duration, fd.cost FROM `flight` f inner join flightdetails fd on f.Flight_ID = fd.Flight_Id;";
+            cmd.CommandText = "SELECT fd.flightdetail_id, f.airlinename, f.airlinecode, f.airlineimagepath, fd.destinationfrom, fd.destinationto, fd.departuretime, fd.arrivaltime, fd.duration, fd.cost FROM `flight` f inner join flightdetails fd on f.Flight_ID = fd.Flight_Id where fd.destinationfrom='"+ flt.From+ "' and fd.destinationto='" + flt.To+"'; ";
             try
             {
                 conn.Open();
                 MySqlDataReader rdr = cmd.ExecuteReader();
                 while (rdr.Read())
-                {
+                {   
                     FlightModel flight = new FlightModel();
-                    flight.FlightID = int.Parse(rdr["Flight_ID"].ToString());
+                    flight.FlightDetailsID = int.Parse(rdr["FlightDetail_ID"].ToString());
                     flight.AirlineName = rdr["AirlineName"].ToString();
                     flight.AirlineCode=int.Parse(rdr["AirlineCode"].ToString());
                     flight.AirlineImage=rdr["AirlineImagePath"].ToString();
@@ -53,6 +53,34 @@ namespace TragoAPI.Controllers
 
 
             
+        }
+
+        [AuthenticationFilter]
+        [Route("api/Flight/BookFlight")]
+        [HttpPost]
+        public bool BookFlight([FromBody]FlightBookingModel booking)
+        {
+
+            MySqlConnection conn = new MySqlConnection(constr);
+            MySqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = "Insert into flightbooking (user_id, flightdetail_id, dateofbooking, bookedfordate, address, contactno, passportnumber, nationality) values ('" + WebApiApplication.UserID + "','" + booking.PackageDetailID + "','" + DateTime.Now.ToString("yyyy-MM-dd") + "','" + booking.BookedForDate + "','" + booking.Address + "','" + booking.ContactNo + "','" + booking.PassportNumber + "','" + booking.Nationality + "')";
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                conn.Close();
+                return true;
+
+
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+
+
         }
     }
 }
